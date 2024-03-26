@@ -1,20 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { NextPage } from "next";
+import React, { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import { Link } from "@mui/material";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [router, setRouter] = useState<any>(null); // State to hold router instance
 
-  useEffect(() => {
-    // Import useRouter only when mounted on the client-side
-    const nextRouter = require("next/router");
-    setRouter(nextRouter);
-  }, []);
+  const router = useRouter();
 
   const handleLogin = async () => {
     const result = await signIn("credentials", {
@@ -26,9 +21,8 @@ const LoginPage: React.FC = () => {
     if (result?.error) {
       setError(result.error);
     } else {
-      if (router) {
-        router.push("/booking");
-      }
+      alert("Login success");
+      router.push("/");
     }
   };
 

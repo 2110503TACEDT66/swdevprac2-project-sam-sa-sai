@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import getCampground from "@/libs/getCampground";
 import DateReserve from "@/components/DateReserve";
+import Link from "next/link";
 import ReserveCampground from "@/components/ReserveCampground";
+import { addBooking } from "@/redux/features/bookSlice";
 
 export default async function CampgroundDetailPage({
   params,
@@ -25,12 +28,16 @@ export default async function CampgroundDetailPage({
       <div className="w-[90%] h-[70vh] border-4 border-bg-black flex flex-col justify-center  space-y-5 top-1/2 rounded-2xl p-5 items-center">
         <div className="w-[100%] h-[30%] flex flex-row h-auto justify-center items-center">
           <div className="block items-left w-[45%]">
-            <div>Name of this Campground</div>
-            <div>Rating</div>
-            <div>168, Parkkret District, Nonthaburi 10110, Thailand</div>
+            <div> {campgroundReady.name} </div>
+            <div> {campgroundReady.rating} </div>
+            <div>
+              {" "}
+              {campgroundReady.address} {campgroundReady.district}{" "}
+              {campgroundReady.postalcode} {campgroundReady.tel}
+            </div>
           </div>
           <div className="top-0 right-0 h-[100%] w-[45%] text-2xl items-end text-right text-end">
-            <h1 className="h-full">1000 Baht</h1>
+            <h1 className="h-full"> {campgroundReady.price} Baht</h1>
           </div>
         </div>
         <div className="w-[100%] h-[70%] flex flex-row h-auto justify-center items-center">
@@ -100,9 +107,15 @@ export default async function CampgroundDetailPage({
           {campgroundReady.description}
         </div>
         <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col justify-center rounded-2xl m-5 items-center">
-          <div>
-            <ReserveCampground></ReserveCampground>
-          </div>
+          <div className="text-center">Want to Reserve?</div>
+          <Link href="/booking">
+            <button
+              className="bg-orange-600 px-5 py-3 rounded-lg"
+              onClick={ReserveCampground}
+            >
+              Reserve
+            </button>
+          </Link>
         </div>
       </div>
     </main>

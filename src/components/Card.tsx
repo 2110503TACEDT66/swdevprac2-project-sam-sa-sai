@@ -28,12 +28,12 @@ export default function Card({
       </div>
       <div
         className="w-[30%] h-full p-[10px] bottom-0
-                  text-slate-100 font-sans font-normal text-right text-wrap 
-                  bg-cyan-400 setanimation items-right border border-l-black "
+                  text-black font-sans font-normal text-right text-wrap 
+                  setanimation items-right border border-l-black "
       >
         <div className=" text-xl h-[70%]">{campgroundName}</div>
         <div>
-          <button className="text-md h-[30%] p-2 bg-slate-500 rounded-lg items-end hover:bg-slate-800">
+          <button className="text-md h-[30%] p-2 bg-orange-600 rounded-lg text-white items-end hover:bg-orange-800">
             Check Availability
           </button>
         </div>

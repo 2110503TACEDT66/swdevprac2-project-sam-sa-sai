@@ -1,9 +1,14 @@
 "use client";
+
 import React, { useState } from "react";
 import { Link } from "@mui/material";
 import userRegister from "@/libs/userRegister";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const RegisterPage: React.FC = () => {
+  const router = useRouter();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +22,14 @@ const RegisterPage: React.FC = () => {
       await userRegister(name, email, password, tel);
       console.log("Registration successful");
       alert("Registration successful");
+
+      await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      router.push("/");
     } catch (error: unknown) {
       const err = error as any;
       alert("Please check your tel. or Email it already registered.");

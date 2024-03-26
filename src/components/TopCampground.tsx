@@ -10,9 +10,8 @@ export default function TopCampground() {
 
   return (
     <main className="p-10">
-      <h1 className="text-xl left-10px text-black font-medium">
-        {" "}
-        Top Campground{" "}
+      <h1 className="text-2xl text-center text-black font-semibold">
+        Top Campground
       </h1>
       <Suspense
         fallback={

@@ -1,21 +1,21 @@
 const userRegister = async (
-  username: string,
+  name: string,
   email: string,
   password: string,
   tel: string
 ) => {
   const response = await fetch(
-    "https://vaccine-app-backend.vercel.app:443/api-informations/users/register",
+    "https://project-backend-eight.vercel.app/api-informations/users/register",
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: username,
+        name: name,
         email: email,
         password: password,
-        telephone: tel,
+        tel: tel,
         role: "user",
       }),
     }

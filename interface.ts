@@ -26,8 +26,7 @@ export interface HospitalDetail {
 }
 
 export interface BookingItem {
-  id: string;
-  campground: string;
+  campgroundid: string;
   checkin: string;
   checkout: string;
 }

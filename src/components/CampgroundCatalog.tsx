@@ -18,9 +18,9 @@ export default async function CampgroundCatalog({
   const campgroundReady = await campgroundJson;
   return (
     <>
-      <div className="w[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-center">
-        <div className="w-[25%] relative items-center">
-          <div className="bg-slate-300 w-full my-auto block border border-black rounded-lg">
+      <div className="w[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start">
+        <div className="w-[25%] relative items-start">
+          <div className="bg-white w-full my-auto block border border-black rounded-lg">
             <div className="w-[100%] block items-center">
               <div className="p-8 border-b border-black">
                 <div className="text-lg text-left">Stars</div>

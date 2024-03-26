@@ -25,6 +25,7 @@ export default function Banner() {
         fill={true}
         priority
         objectFit="cover"
+        className="opacity-50"
       />
       <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium z-40"> Nature Awaits </h1>
@@ -38,16 +39,26 @@ export default function Banner() {
           Welcome {session.user?.name}
         </div>
       ) : null}
-      <button
-        className="bg-orange-600 text-white border border-green-600 font-semibold py-2 px-2 m-2 rounded z-30 absolute bottom-[10%] right-[40%]
-                hover:bg-green-600 hover:text-white hover:transparent"
-        onClick={(e) => {
-          e.stopPropagation();
-          router.push("/campground");
-        }}
-      >
-        Choose Your Campground Escape !
-      </button>
+      <div className="flex justify-center items-center h-screen">
+        <div className="absolute top-[20%] w-full text-center">
+          <h1 className="text-5xl font-medium text-white z-40">
+            Nature Awaits
+          </h1>
+          <h1 className="text-5xl font-medium text-white z-40 mt-5">
+            Unlock Boundless Camping Experiences
+          </h1>
+        </div>
+        <button
+          className="text-xl bg-orange-600 text-white border-2 border-stone-600 hover:border-green-600 font-semibold py-6 px-5 m-2 rounded-xl z-30
+                hover:bg-green-600 hover:text-white hover:transparent hover:shadow-xl transform translate-y-10"
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push("/campground");
+          }}
+        >
+          Choose Your Campground Escape!
+        </button>
+      </div>
     </div>
   );
 }

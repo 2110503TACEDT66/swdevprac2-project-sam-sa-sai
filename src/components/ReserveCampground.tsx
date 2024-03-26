@@ -13,14 +13,13 @@ import session from "redux-persist/lib/storage/session";
 
 export default async function ReserveCampground() {
   const dispatch = useDispatch<AppDispatch>();
-  const campground = useSearchParams(`id`);
-  const user = await getUserProfile(session);
+  const urlParams = useSearchParams();
+  const campground = urlParams.get(`id`);
 
   const makeReservation = () => {
     if (campground) {
       const item: BookingItem = {
-        id: id,
-        campground: campground,
+        campgroundid: campground,
         checkin: dayjs(pickupDate).format("YYYY/MM/DD"),
         checkout: dayjs(pickupDate).format("YYYY/MM/DD"),
       };
@@ -57,7 +56,7 @@ export default async function ReserveCampground() {
           px-3 py-2 text-white shadow-sm w-[60%] h-[80%] text-lg"
             onClick={makeReservation}
           >
-            Book Vaccine
+            Book Campground
           </button>
         </div>
       </FormControl>
