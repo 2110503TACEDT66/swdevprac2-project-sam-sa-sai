@@ -46,10 +46,10 @@ export default function Banner() {
         onClick={(e) => {
           e.stopPropagation();
           e.preventDefault();
-          router.push("/hospital");
+          router.push("/campground");
         }}
       >
-        Select Hospital
+        Select Campground
       </button>
     </div>
   );

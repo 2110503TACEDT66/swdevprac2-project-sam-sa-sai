@@ -21,9 +21,9 @@ export default function InteractiveCard({
   }
   return (
     <div
-      className="w-full h-[300px] rounded-lg shadow-lg
+      className="w-full h-[180px] rounded-lg shadow-lg
                 border-4 border-cyan-950 lookcard
-                m-1 bg-white"
+                bg-white m-2 flex flex-row "
       onMouseOver={(e) => onCardMouseAction(e)}
       onMouseOut={(e) => onCardMouseAction(e)}
     >

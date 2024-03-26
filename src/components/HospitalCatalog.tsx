@@ -16,7 +16,7 @@ export default async function HospitalCatalog({
           <Link href={`/hospital/${HospitalItem.id}`} className="w-1/5 m-5">
             <Card
               key={HospitalItem.name}
-              hospitalName={HospitalItem.name}
+              campgroundName={HospitalItem.name}
               imgSrc={HospitalItem.picture}
             />
           </Link>

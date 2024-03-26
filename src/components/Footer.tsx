@@ -8,11 +8,11 @@ export default function Footer() {
     bg-cyan-800 px-2 py-1.5 justify-center
     text-slate-100 font-sans font-normal text-lg text-center text-wrap"
     >
-      <div className="flex flex-row justify-center">
-        <div className="top-0 relative h-[100%]">
+      <div className="flex flex-row justify-center relative p-3">
+        <div className="left-0 w-[10%] h-auto flex flex-row justify-start items-left">
           <Image
             src={"/img/logo.png"}
-            className="w-auto h-full"
+            className="w-auto h-[50%]"
             alt="logo"
             width={0}
             height={0}
