@@ -9,7 +9,7 @@ export default function ReservationBooking() {
   );
   const dispatch = useDispatch<AppDispatch>();
   return (
-    <>
+    <div className="min-h-[70vh]">
       {bookItems.length > 0 ? (
         bookItems.map((reservationItem) => (
           <div
@@ -27,11 +27,11 @@ export default function ReservationBooking() {
                 </tr>
                 <tr>
                   <td>Date Check-In</td>
-                  <td>{reservationItem.checkout.toString()}</td>
+                  <td>{reservationItem.checkin.toString()}</td>
                 </tr>
                 <tr>
                   <td>Date Check-Out</td>
-                  <td>{reservationItem.checkin.toString()}</td>
+                  <td>{reservationItem.checkout.toString()}</td>
                 </tr>
               </tbody>
             </table>
@@ -51,6 +51,6 @@ export default function ReservationBooking() {
       ) : (
         <h1 className="text-center text-3xl m-16">"No Campground Booking"</h1>
       )}
-    </>
+    </div>
   );
 }

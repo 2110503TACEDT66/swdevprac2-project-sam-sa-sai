@@ -26,10 +26,10 @@ export default function Card({
           />
         </div>
         <div className="w-[65%] h-full text-left p-2 my-auto">
-          <div className="text-2xl text-wrap font-semibold">
+          <div className="text-xl text-wrap font-semibold">
             {campgroundName}
           </div>
-          <div className="text-lg text-wrap font-semibold text-slate-400">
+          <div className="text-lg text-wrap font-medium text-slate-400">
             {" "}
             at {province}
           </div>

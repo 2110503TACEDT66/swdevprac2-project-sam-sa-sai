@@ -22,15 +22,16 @@ export default function Booking() {
     if (id) {
       const item: BookingItem = {
         campgroundid: id,
-        checkin: dayjs(pickupDate).format("YYYY/MM/DD"),
-        checkout: dayjs(pickupDate).format("YYYY/MM/DD"),
+        checkin: dayjs(checkin).format("YYYY/MM/DD"),
+        checkout: dayjs(checkout).format("YYYY/MM/DD"),
       };
       dispatch(addBooking(item));
       ruoter.push("/success");
     }
   };
 
-  const [pickupDate, setPickupDate] = useState<Dayjs | null>(null);
+  const [checkin, setCheckin] = useState<Dayjs | null>(null);
+  const [checkout, setCheckout] = useState<Dayjs | null>(null);
 
   return (
     <main className="w-[100%]  flex flex-wrap flex-col items-center space-y-4 ">
@@ -41,7 +42,7 @@ export default function Booking() {
             <div>Check-In</div>
             <DateReserve
               onDateChange={(value: Dayjs) => {
-                setPickupDate(value);
+                setCheckin(value);
               }}
             />
           </div>
@@ -49,7 +50,7 @@ export default function Booking() {
             <div>Check-Out</div>
             <DateReserve
               onDateChange={(value: Dayjs) => {
-                setPickupDate(value);
+                setCheckout(value);
               }}
             />
           </div>

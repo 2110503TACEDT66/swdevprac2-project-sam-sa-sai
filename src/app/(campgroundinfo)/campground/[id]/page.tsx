@@ -25,10 +25,13 @@ export default async function CampgroundDetailPage({
     <main className="block w-full h-auto flex flex-col justify-center space-y-16 my-10 items-center text-black">
       <div className="w-[90%] h-[70vh] border-4 border-bg-black flex flex-col justify-center  space-y-5 top-1/2 rounded-2xl p-5 items-center">
         <div className="w-[100%] h-[30%] flex flex-row h-auto justify-center items-center">
-          <div className="block items-left w-[45%]">
-            <div className="text-xl"> {campgroundReady.data.name} </div>
-            <div className=""> Rating: {campgroundReady.data.rating} </div>
-            <div>
+          <div className="block items-left w-[45%] space-y-2">
+            <div className="text-4xl"> {campgroundReady.data.name} </div>
+            <div className="text-lg">
+              {" "}
+              Rating: {campgroundReady.data.rating}{" "}
+            </div>
+            <div className="">
               {" "}
               Address:
               {campgroundReady.data.address} {campgroundReady.data.district}{" "}
@@ -110,11 +113,11 @@ export default async function CampgroundDetailPage({
         </div>
       </div>
       <div className="w-[90%] h-[30vh] flex flex-row justify-center space-x-5 rounded-2xl p-5 items-center">
-        <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col justify-center rounded-2xl m-5 items-center text-left text-black p-10">
+        <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col justify-center rounded-2xl m-5 items-center text-left text-lg text-black p-10">
           {campgroundReady.data.description}
         </div>
-        <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col justify-center rounded-2xl m-5 items-center">
-          <div className="text-center">Want to Reserve?</div>
+        <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col space-y-10 justify-center rounded-2xl m-5 items-center">
+          <div className="text-center text-2xl">Want to Reserve?</div>
           <Link href={`/booking/?id=${params.id}`}>
             <button className="bg-orange-600 px-5 py-3 rounded-lg">
               Reserve

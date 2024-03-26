@@ -44,13 +44,10 @@ export default async function TopMenu() {
           My Booking
         </Link>
         {session ? (
-          <div>
-            <Link
-              href="/profile"
-              className="w-28 text-center my-auto text-text-sm stone-800 px-2 ml-1"
-            >
+          <div className="ml-2">
+            <Link href="/profile" className="w-32 text-center my-auto">
               <Image
-                src={"/img/logo1.png"}
+                src={session.user._id ? session.user.name : "/img/logo2.png"}
                 className="w-auto h-full"
                 alt="logo"
                 width={0}
