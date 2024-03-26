@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="flex flex-row justify-center items-center h-[100%] p-5 m-5">
         <div className="right-0 w-[10%] h-auto flex flex-row justify-center items-right">
           <Image
-            src={"/img/logo.png"}
+            src={"/img/logo1.png"}
             className="w-auto h-[50%]"
             alt="logo"
             width={0}

@@ -16,7 +16,7 @@ export default async function TopMenu() {
     >
       <div className="left-0 w-[50%] flex flex-row justify-start items-left justify-items-start">
         <Image
-          src={"/img/logo.png"}
+          src={"/img/logo1.png"}
           className="w-auto h-full"
           alt="logo"
           width={0}
@@ -37,7 +37,6 @@ export default async function TopMenu() {
         </Link>
       </div>
       <div className="right-0 flex flex-row justify-end justify-items-end items-right w-[50%]">
-        <TopMenuItem title="Booking" pageRef="/booking" />
         <Link
           href="/mybooking"
           className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
@@ -46,18 +45,19 @@ export default async function TopMenu() {
         </Link>
         {session ? (
           <div>
-            <Image
-              src={"/img/logo.png"}
-              className="w-auto h-full"
-              alt="logo"
-              width={0}
-              height={0}
-              sizes="100vh"
-            />
             <Link
               href="/profile"
-              className="w-28 text-center my-auto text-text-sm stone-800 bg-sky-500 rounded-lg px-2 ml-1"
-            ></Link>
+              className="w-28 text-center my-auto text-text-sm stone-800 px-2 ml-1"
+            >
+              <Image
+                src={"/img/logo1.png"}
+                className="w-auto h-full"
+                alt="logo"
+                width={0}
+                height={0}
+                sizes="100vh"
+              />
+            </Link>
           </div>
         ) : (
           <Link

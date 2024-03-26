@@ -93,6 +93,8 @@ export default async function CampgroundCatalog({
                 key={campgroundItem.name}
                 campgroundName={campgroundItem.name}
                 imgSrc={campgroundItem.coverpicture}
+                price={campgroundItem.price}
+                province={campgroundItem.province}
               />
             </Link>
           ))}

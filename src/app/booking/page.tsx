@@ -8,8 +8,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { BookingItem } from "../../../interface";
 import { addBooking } from "@/redux/features/bookSlice";
+import { useRouter } from "next/navigation";
 
 export default function Booking() {
+  const ruoter = useRouter();
+
   const urlParams = useSearchParams();
   const id = urlParams.get(`id`);
 
@@ -23,6 +26,7 @@ export default function Booking() {
         checkout: dayjs(pickupDate).format("YYYY/MM/DD"),
       };
       dispatch(addBooking(item));
+      ruoter.push("/success");
     }
   };
 

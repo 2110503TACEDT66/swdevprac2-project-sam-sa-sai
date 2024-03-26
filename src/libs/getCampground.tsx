@@ -1,11 +1,7 @@
 import { CampgroundItem } from "../../interface";
 //const fetch = require("node-fetch");
 
-export default async function getCampground(
-  id: string
-): Promise<CampgroundItem> {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
+export default async function getCampground(id: string) {
   const response = await fetch(
     `https://project-backend-eight.vercel.app/api-informations/campgrounds/${id}`
   );

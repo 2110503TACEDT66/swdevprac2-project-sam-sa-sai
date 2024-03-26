@@ -36,7 +36,7 @@ export default function ReservationBooking() {
               </tbody>
             </table>
             <button
-              className="block bg-cyan-700 text-white border border-white 
+              className="block bg-orange-600 text-white border border-white 
                          p-2 rounded-lg relative bottom-0
                          hover:bg-white hover:text-cyan-700 
                          hover:border-cyan-700 hover:border-2"

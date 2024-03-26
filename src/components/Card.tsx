@@ -5,9 +5,13 @@ import InteractiveCard from "./InteractiveCard";
 export default function Card({
   campgroundName,
   imgSrc,
+  price,
+  province,
 }: {
   campgroundName: string;
   imgSrc: string;
+  price: number;
+  province: string;
 }) {
   return (
     <InteractiveCard>
@@ -22,18 +26,23 @@ export default function Card({
           />
         </div>
         <div className="w-[65%] h-full text-left p-2 my-auto">
-          <div className="text-lg text-wrap">{campgroundName}</div>
-          <div></div>
+          <div className="text-2xl text-wrap font-semibold">
+            {campgroundName}
+          </div>
+          <div className="text-lg text-wrap font-semibold text-slate-400">
+            {" "}
+            at {province}
+          </div>
         </div>
       </div>
       <div
-        className="w-[30%] h-full p-[10px] bottom-0
-                  text-black font-sans font-normal text-right text-wrap 
+        className="w-[30%] h-full p-[10px] bottom-0 
+                  text-black font-sans font-semibold text-right text-wrap 
                   setanimation items-right border border-l-black "
       >
-        <div className=" text-xl h-[70%]">{campgroundName}</div>
+        <div className=" text-3xl h-[70%] text-green-600">{price} THB</div>
         <div>
-          <button className="text-md h-[30%] p-2 bg-orange-600 rounded-lg text-white items-end hover:bg-orange-800">
+          <button className="text-lg h-[30%] p-2 bg-orange-600 rounded-lg text-white items-end hover:bg-orange-800">
             Check Availability
           </button>
         </div>

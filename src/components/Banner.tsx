@@ -7,10 +7,10 @@ import { useSession } from "next-auth/react";
 
 export default function Banner() {
   const covers = [
-    "/img/cover.jpg",
-    "/img/cover2.jpg",
-    "/img/cover3.jpg",
-    "/img/cover4.jpg",
+    "/img/camp1.jpg",
+    "/img/camp2.jpg",
+    "/img/camp3.jpg",
+    "/img/camp4.jpg",
   ];
   const [index, setIndex] = useState(0);
   const router = useRouter();
@@ -27,13 +27,13 @@ export default function Banner() {
         objectFit="cover"
         className="opacity-50"
       />
-      <div className={styles.bannerText}>
+      {/* <div className={styles.bannerText}>
         <h1 className="text-4xl font-medium z-40"> Nature Awaits </h1>
         <h2 className="text-3xl font-serif z-40">
           {" "}
           "Unlock Boundless Camping Experiences"{" "}
         </h2>
-      </div>
+      </div> */}
       {session ? (
         <div className="z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl">
           Welcome {session.user?.name}
