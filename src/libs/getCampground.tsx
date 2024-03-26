@@ -7,7 +7,7 @@ export default async function getCampground(
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const response = await fetch(
-    `https://vaccine-app-backend.vercel.app/api/v1/hospitals/${id}`
+    `https://project-backend-eight.vercel.app/api-informations/campgrounds/${id}`
   );
 
   if (!response.ok) {

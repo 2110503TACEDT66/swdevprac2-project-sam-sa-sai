@@ -21,11 +21,10 @@ export default function Booking() {
   const makeReservation = () => {
     if (id && hospital && name && lastname) {
       const item: BookingItem = {
-        name: name,
-        surname: lastname,
         id: id,
-        hospital: hospital,
-        bookDate: dayjs(pickupDate).format("YYYY/MM/DD"),
+        campground: hospital,
+        checkin: dayjs(pickupDate).format("YYYY/MM/DD"),
+        checkout: dayjs(pickupDate).format("YYYY/MM/DD"),
       };
       dispatch(addBooking(item));
     }

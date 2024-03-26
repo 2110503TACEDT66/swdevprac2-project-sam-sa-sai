@@ -1,8 +1,8 @@
 "use client";
-import styles from "./banner.module.css";
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import styles from "./banner.module.css";
+import Image from "next/image";
 import { useSession } from "next-auth/react";
 
 export default function Banner() {
@@ -12,44 +12,41 @@ export default function Banner() {
     "/img/cover3.jpg",
     "/img/cover4.jpg",
   ];
-  let [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const router = useRouter();
   const { data: session } = useSession();
+  //console.log(session?.user.token)
 
   return (
-    <div
-      className={styles.banner}
-      onClick={() => {
-        setIndex((index + 1) % 4);
-      }}
-    >
+    <div className={styles.banner} onClick={() => setIndex(index + 1)}>
       <Image
         src={covers[index % 4]}
         alt="cover"
         fill={true}
         priority
-        className="object-cover opacity-90"
+        objectFit="cover"
       />
-      <div className="top-2/4 text-center text-wrap z-10 relative">
-        <h1 className="text-5xl font-sans mb-1">Vaccine Service Center</h1>
-        <h3 className="text-2xl font-mono">We care for your health</h3>
+      <div className={styles.bannerText}>
+        <h1 className="text-4xl font-medium z-40"> Nature Awaits </h1>
+        <h2 className="text-3xl font-serif z-40">
+          {" "}
+          "Unlock Boundless Camping Experiences"{" "}
+        </h2>
       </div>
       {session ? (
-        <div className="z-30 absolute top-5 right-10 font-semibold text-xl text-cyan-800">
+        <div className="z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl">
           Welcome {session.user?.name}
         </div>
       ) : null}
       <button
-        className="bg-white text-cyan-700 border border-cyan-700 
-      font-semibold p-2 m-3 rounded-lg z-30 absolute bottom-0 right-0
-      hover:bg-cyan-700 hover:text-white hover:border-transparent"
+        className="bg-orange-600 text-white border border-green-600 font-semibold py-2 px-2 m-2 rounded z-30 absolute bottom-[10%] right-[40%]
+                hover:bg-green-600 hover:text-white hover:transparent"
         onClick={(e) => {
           e.stopPropagation();
-          e.preventDefault();
           router.push("/campground");
         }}
       >
-        Select Campground
+        Choose Your Campground Escape !
       </button>
     </div>
   );

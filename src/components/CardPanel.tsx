@@ -26,7 +26,7 @@ export default function CardPanel() {
             <Card
               key={campgroundItem.name}
               campgroundName={campgroundItem.name}
-              imgSrc={campgroundItem.picture}
+              imgSrc={campgroundItem.coverpicture}
             />
           </Link>
         ))}

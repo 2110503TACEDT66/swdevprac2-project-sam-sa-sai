@@ -17,7 +17,7 @@ export default function ReservationBooking() {
             key={reservationItem.id}
           >
             <div className="text-xl pl-2">
-              {reservationItem.name} {reservationItem.surname}
+              {/* {reservationItem.name} {reservationItem.surname} */}
             </div>
             <table className="table-auto border-separate border-spacing-2">
               <tbody>
@@ -27,11 +27,11 @@ export default function ReservationBooking() {
                 </tr>
                 <tr>
                   <td>Hospital</td>
-                  <td>{reservationItem.hospital}</td>
+                  <td>{reservationItem.campground}</td>
                 </tr>
                 <tr>
                   <td>Date</td>
-                  <td>{reservationItem.bookDate.toString()}</td>
+                  <td>{reservationItem.checkin.toString()}</td>
                 </tr>
               </tbody>
             </table>

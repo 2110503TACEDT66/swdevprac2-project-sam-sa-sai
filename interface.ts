@@ -26,11 +26,10 @@ export interface HospitalDetail {
 }
 
 export interface BookingItem {
-  name: string;
-  surname: string;
   id: string;
-  hospital: string;
-  bookDate: string;
+  campground: string;
+  checkin: string;
+  checkout: string;
 }
 
 /*-------------------------------------------------------*/
@@ -40,16 +39,19 @@ export interface CampgroundItem {
   name: string;
   address: string;
   district: string;
-  rating: number | 0;
   province: string;
+  region: string;
   postalcode: string;
   tel: string;
-  picture: string;
-  __v: number;
-  id: string;
   url: string;
   maxReservations: number;
-  price: number | 0;
+  coverpicture: string;
+  picture: string[];
+  description: string;
+  price: number;
+  rating: number;
+  reservations: [];
+  id: string;
 }
 
 export interface CampgroundJson {
