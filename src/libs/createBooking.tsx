@@ -22,7 +22,7 @@ const createBooking = async (campground: CreateBookingItem, token: string) => {
 
     return responseData;
   } catch (error) {
-    alert(`Failed to create booking: ${error.message}`);
+    alert("You create more than 3 reservation");
     throw error;
   }
 };
