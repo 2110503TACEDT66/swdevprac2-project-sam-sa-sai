@@ -3,7 +3,7 @@ import Image from "next/image";
 import getCampground from "@/libs/getCampground";
 import DateReserve from "@/components/DateReserve";
 import Link from "next/link";
-import ReserveCampground from "@/components/ReserveCampground";
+// import ReserveCampground from "@/components/ReserveCampground";
 // import { addBooking } from "@/redux/features/bookSlice";
 
 export default async function CampgroundDetailPage({
