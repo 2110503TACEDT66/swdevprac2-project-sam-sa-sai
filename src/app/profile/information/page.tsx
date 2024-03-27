@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { UserJson } from "../../../../interface";
 import { fetchData } from "next-auth/client/_utils";
 import updateUser from "@/libs/updateUser";
+import LogoutModal from "@/components/LogoutModel";
 // import ProfilePage from "@/components/ProfilePage";
 // import { useRouter } from "next/navigation";
 
@@ -19,6 +20,7 @@ export default function Profile() {
 
   // const [isEditing, setIsEditing] = useState(false);
   // const [name, setName] = useState(null);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [statusName, setStatusName] = useState(true);
   const [statusEmail, setStatusEmail] = useState(true);
   const [name, setName] = useState("");
@@ -73,11 +75,19 @@ export default function Profile() {
           </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
-          <div className="w-[100%] pb-2 pl-5 border-b border-black bottom-4">
-            <Link href="/api/auth/logout">Logout</Link>
+          <div
+            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer"
+            onClick={() => setShowLogoutModal(true)}
+          >
+            Logout
           </div>
         </div>
       </div>
+      <LogoutModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+      />
+
       <div className="w-[70%] h-full text-left mx-20 mt-48">
         <div className="text-2xl ml-4 mb-12">Profile</div>
         <div className="flex flex-col space-y-8 m-4 mt-50">
@@ -92,6 +102,7 @@ export default function Profile() {
                 size="small"
                 InputProps={{
                   readOnly: statusName,
+                  style: { width: "300px" },
                 }}
               />
 
@@ -119,6 +130,7 @@ export default function Profile() {
                 size="small"
                 InputProps={{
                   readOnly: statusEmail,
+                  style: { width: "300px" },
                 }}
               />
               <Image
@@ -137,12 +149,19 @@ export default function Profile() {
           <div className="space-y-3">
             <div>Tel</div>
             <div className="flex flex-row">
-              <TextField defaultValue={tel} size="small" disabled />
+              <TextField
+                defaultValue={tel}
+                size="small"
+                disabled
+                InputProps={{
+                  style: { width: "300px" },
+                }}
+              />
             </div>
           </div>
           <div>
             <button
-              className="rounded-md bg-orange-600 hover:bg-orange-400 px-3 py-2
+              className="rounded-md bg-orange-600 hover:bg-orange-400 px-8 py-2
             shadow-sm text-white right-0 bottom-0 mt-8"
               onClick={() => {
                 if (id && session.data.user.token) {

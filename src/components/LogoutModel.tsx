@@ -1,18 +1,20 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-const LogoutPage = () => {
+interface LogoutModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, onClose }) => {
   const router = useRouter();
-  const [showModal, setShowModal] = useState(true); // Add showModal state
 
   const handleLogout = async () => {
     try {
       await signOut({ redirect: false });
       if (router) {
-        // alert("Logout successful");
         window.location.reload();
         window.location.href = "/";
       }
@@ -21,6 +23,8 @@ const LogoutPage = () => {
       alert("Logout failed");
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -38,7 +42,7 @@ const LogoutPage = () => {
         <div className="flex justify-center space-x-10">
           <button
             className="px-4 py-2 mr-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300"
-            onClick={() => setShowModal(false)}
+            onClick={onClose}
           >
             Cancel
           </button>
@@ -54,4 +58,4 @@ const LogoutPage = () => {
   );
 };
 
-export default LogoutPage;
+export default LogoutModal;

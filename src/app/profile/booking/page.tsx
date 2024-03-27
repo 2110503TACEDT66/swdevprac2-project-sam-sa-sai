@@ -12,6 +12,7 @@ import { useSession } from "next-auth/react";
 import { BookingItem } from "../../../../interface";
 import { useEffect } from "react";
 import deleteBooking from "@/libs/deleteBooking";
+import LogoutModal from "@/components/LogoutModel";
 // import { useRouter } from "next/navigation";
 
 export default function Profile() {
@@ -26,6 +27,7 @@ export default function Profile() {
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
   const [name, setName] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
 
   const fetchData = async () => {
     if (session.data?.user) {
@@ -64,12 +66,15 @@ export default function Profile() {
           </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
-          <div className="w-[100%] pb-2 pl-5 border-b border-black bottom-4">
-            <Link href="/api/auth/logout">Logout</Link>
+          <div className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer" onClick={() => setShowLogoutModal(true)}>
+            Logout
           </div>
         </div>
       </div>
-
+      <LogoutModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+      />
       <div className="w-[70%] h-full text-left mx-20 mt-48">
         <div className="text-4xl ml-4 mb-8 underline ml-5">Booking</div>
         {reservation && reservation.length > 0 ? (
