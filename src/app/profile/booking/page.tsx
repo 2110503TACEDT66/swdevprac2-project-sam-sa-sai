@@ -1,5 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+"use client";
 import getUserProfile from "@/libs/getUserProfile";
 import Link from "next/link";
 import DateReserve from "@/components/DateReserve";
@@ -7,19 +6,39 @@ import userLogOut from "@/libs/userLogout";
 import Image from "next/image";
 import { TextField } from "@mui/material";
 import { useState } from "react";
+import getBookings from "@/libs/getBooking";
+import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { BookingItem } from "../../../../interface";
+import { useEffect } from "react";
+import deleteBooking from "@/libs/deleteBooking";
 // import { useRouter } from "next/navigation";
 
-export default async function Profile() {
+export default function Profile() {
   // const router = useRouter();
 
   // const [isEditing, setIsEditing] = useState(false);
   // const [name, setName] = useState(null);
 
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user.token) return null;
+  const session = useSession();
+  console.log(session);
 
-  const profile = await getUserProfile(session.user.token);
-  var createdAt = new Date(profile.data.createdAt);
+  const [reservation, setreservation] = useState<null | BookingItem[]>(null);
+  const [name, setName] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const fetchData = async () => {
+    if (session.data?.user) {
+      const res = await getBookings(session.data.user.token);
+      const roleuser = await getUserProfile(session.data.user.token);
+      setreservation(res.data);
+      setName(roleuser.data.name);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [session.data?.user]);
 
   return (
     <div className="w-full h-[100vh] flex flex-row justtify-center items-center">
@@ -34,7 +53,7 @@ export default async function Profile() {
           />
         </div>
         <div className="h-[5%] w-[90%] relative">
-          <div className="text-3xl text-center mt-12">{profile.data.name}</div>
+          <div className="text-3xl text-center mt-12">{name}</div>
         </div>
         <div className="h-[20%] w-[95%] space-y-2 flex-1 itemscenter relative">
           <Link href={"/profile/information"}>
@@ -52,53 +71,74 @@ export default async function Profile() {
       </div>
 
       <div className="w-[70%] h-full text-left mx-20 mt-48">
-        <div className="text-2xl ml-4 mb-12">Booking</div>
-        <div className="flex flex-col space-y-8 m-4 mt-50"></div>
+        <div className="text-4xl ml-4 mb-8 underline ml-5">Booking</div>
+        {reservation && reservation.length > 0 ? (
+          <div className="px-5 mt-10 py-5 flex flex-col justify-center">
+            <div className="pl-2 flex flex-row h-[20px] items-center text-black text-xl">
+              <p className="w-[50%] flex-wrap justify-lefy">Camground Name</p>
+              <p className="w-[25%] flex-wrap justify-center">Date</p>
+              <div className="w-[25%] flex-wrap space-x-3 justify-end items-right"></div>
+            </div>
+          </div>
+        ) : null}
+        <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[70vh]">
+          {reservation && reservation.length > 0 ? (
+            reservation.map((reservationItem) => (
+              <div
+                className="bg-slate-200 rounded-lg  px-5 py-5 flex flex-col justify-center"
+                key={reservationItem._id}
+              >
+                <div className="pl-2 flex flex-row h-[20px] items-center ">
+                  <p className="w-[50%] flex-wrap justify-lefy">
+                    {reservationItem.campground.name}
+                  </p>
+                  <p className="w-[25%] flex-wrap justify-center">
+                    {dayjs(reservationItem.createdAt).format("YYYY-MM-DD")}
+                  </p>
+                  <div className="w-[25%] flex-wrap space-x-3 justify-end items-right">
+                    <Link href={`/editbooking?id=${reservationItem._id}`}>
+                      <button className="py-2 px-3 bg-stone-600 rounded-lg text-white hover:bg-stone-800">
+                        edit
+                      </button>
+                    </Link>
+                    <button
+                      disabled={isDeleting}
+                      className={
+                        isDeleting
+                          ? "py-2 px-3 bg-stone-400 rounded-lg text-white"
+                          : "py-2 px-3 bg-stone-600 rounded-lg text-white hover:bg-stone-800"
+                      }
+                      onClick={async () => {
+                        if (session.data) {
+                          setIsDeleting(true);
+                          try {
+                            await deleteBooking(
+                              reservationItem._id,
+                              session.data?.user.token
+                            );
+                            fetchData();
+                          } catch (error) {
+                            console.log(error);
+                          } finally {
+                            alert("delete reservation successful");
+                            setIsDeleting(false);
+                          }
+                        }
+                      }}
+                    >
+                      delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <h1 className="text-center text-2xl m-16">
+              "No Campground Booking"
+            </h1>
+          )}
+        </div>
       </div>
     </div>
   );
 }
-
-/*
-    <div className="w-[100%] flex flex-col items-center space-y-4 min-h-[70vh] justify-center">
-      <div className="border border-black p-10 rounded-xl">
-        <div className="text-3xl font-medium"> Profile </div>
-        <br />
-
-        {
-          <Link href={"/campground"}>
-            <button
-              className="block rounded-md bg-orange-600 hover:bg-orange-400 px-3 py-2
-            shadow-sm text-white "
-            >
-              Book campground
-            </button>
-          </Link>
-        }
-        <div className="flex flex-col">
-          <div className="w-200 h-20 border border-gray-500 p-5 m-5 flex items-center justify-center">
-            {" "}
-            Name : {profile.data.name} <br />
-          </div>
-          <div className="w-200 h-20 border border-gray-500 p-5 m-5 flex items-center justify-center">
-            {" "}
-            Email : {profile.data.email} <br />
-          </div>
-          <div className="w-200 h-20 border border-gray-500 p-5 m-5 flex items-center justify-center">
-            {" "}
-            Telephone : {profile.data.tel} <br />
-          </div>
-        </div>
-        <div>
-          <Link href="/api/auth/logout">
-            <button
-              className="rounded-md bg-orange-600 hover:bg-orange-400 px-3 py-2
-            shadow-sm text-white right-0 bottom-0"
-            >
-              Logout
-            </button>
-          </Link>
-        </div>
-      </div>
-    </div>
-*/

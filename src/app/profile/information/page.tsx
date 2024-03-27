@@ -26,7 +26,6 @@ export default function Profile() {
   const [tel, setTel] = useState("");
   const [createAt, setcreateAt] = useState("");
   const [id, setId] = useState("");
-  const [password, setPassword] = useState("");
 
   const session = useSession();
   console.log(session);
@@ -46,7 +45,7 @@ export default function Profile() {
   }, [session.data?.user]);
 
   if (!session || !session.data?.user?.token)
-    return <div className="text-xl text-center">...Loading</div>;
+    return <div className="text-xl text-center my-24">...Loading</div>;
 
   if (!name && !email && !tel) return null;
 

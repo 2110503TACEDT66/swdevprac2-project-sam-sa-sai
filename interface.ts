@@ -92,6 +92,7 @@ export interface UserJson {
     name: string;
     tel: string;
     email: string;
+    password: string;
     role: string;
     createdAt: string;
   };

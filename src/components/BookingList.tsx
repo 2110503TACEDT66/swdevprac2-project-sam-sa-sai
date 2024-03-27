@@ -1,6 +1,6 @@
 "use client";
 // import { useAppSelector, AppDispatch } from "@/redux/store";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { removeBooking } from "@/redux/features/bookSlice";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import getBookings from "@/libs/getBooking";
 import session from "redux-persist/lib/storage/session";
 import { useSession } from "next-auth/react";
 import getUserProfile from "@/libs/getUserProfile";
+import Link from "next/link";
 
 export default function ReservationBooking() {
   // const bookItems = useAppSelector(
@@ -26,7 +27,6 @@ export default function ReservationBooking() {
     if (session.data?.user) {
       const res = await getBookings(session.data.user.token);
       const roleuser = await getUserProfile(session.data.user.token);
-      const userName = await getUserProfile(session.data.user.name);
       setreservation(res.data);
       setRole(roleuser.data.role);
     }
@@ -41,7 +41,7 @@ export default function ReservationBooking() {
       {reservation && reservation.length > 0 ? (
         reservation.map((reservationItem) => (
           <div
-            className="bg-slate-200 rounded-lg  px-5 m-5 mt-10 py-5 my-4"
+            className="bg-slate-200 rounded-lg  px-5 m-5 py-5 my-4"
             key={reservationItem._id}
           >
             <div className="text-xl pl-2">
@@ -81,6 +81,18 @@ export default function ReservationBooking() {
                 </tr>
               </tbody>
             </table>
+            <Link href={`/editbooking?id=${reservationItem._id}`}>
+              <button
+                disabled={isDeleting}
+                className={
+                  isDeleting
+                    ? "block bg-slate-600 text-white border border-white p-2 rounded-lg relative bottom-0"
+                    : "block bg-orange-600 text-white border border-white p-2 rounded-lg relative bottom-0 hover:bg-white hover:text-orange-700 hover:border-orange-700 border-2"
+                }
+              >
+                Edit Campground Booking
+              </button>
+            </Link>
             <button
               disabled={isDeleting}
               className={
