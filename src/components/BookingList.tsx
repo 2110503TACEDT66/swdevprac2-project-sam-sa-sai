@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 // import { removeBooking } from "@/redux/features/bookSlice";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { BookingItem } from "../../interface";
+import { BookingItem, UserJson } from "../../interface";
 import deleteBooking from "@/libs/deleteBooking";
 import getBookings from "@/libs/getBooking";
 import session from "redux-persist/lib/storage/session";
 import { useSession } from "next-auth/react";
+import getUserProfile from "@/libs/getUserProfile";
 
 export default function ReservationBooking() {
   // const bookItems = useAppSelector(
@@ -18,12 +19,16 @@ export default function ReservationBooking() {
   console.log(session);
 
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
+  const [role, setRole] = useState("");
   const [isDeleting, setisDeleting] = useState(false);
 
   const fetchData = async () => {
     if (session.data?.user) {
       const res = await getBookings(session.data.user.token);
+      const roleuser = await getUserProfile(session.data.user.token);
+      const userName = await getUserProfile(session.data.user.name);
       setreservation(res.data);
+      setRole(roleuser.data.role);
     }
   };
 
@@ -44,6 +49,12 @@ export default function ReservationBooking() {
             </div>
             <table className="table-auto border-separate border-spacing-2">
               <tbody>
+                {role == "admin" ? (
+                  <tr>
+                    <td>User Id</td>
+                    <td>{reservationItem.user}</td>
+                  </tr>
+                ) : null}
                 <tr>
                   <td>Campground Name</td>
                   <td>{reservationItem.campground.name}</td>

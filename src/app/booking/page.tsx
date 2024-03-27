@@ -1,18 +1,19 @@
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "@/redux/store";
+// import { BookingItem } from "../../../interface";
+// import { addBooking } from "@/redux/features/bookSlice";
 "use client";
 import { FormControl } from "@mui/material";
 import DateReserve from "@/components/DateReserve";
 import dayjs, { Dayjs } from "dayjs";
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/redux/store";
-import { BookingItem } from "../../../interface";
-// import { addBooking } from "@/redux/features/bookSlice";
 import { useRouter } from "next/navigation";
 import {
   CampgroundJson,
   CampgroundItem,
   CreateBookingItem,
+  UserJson,
 } from "../../../interface";
 import getCampground from "@/libs/getCampground";
 import { useSession } from "next-auth/react";
@@ -42,8 +43,6 @@ export default function Booking() {
     }
   }, [id]);
 
-  const dispatch = useDispatch<AppDispatch>();
-
   const makeReservation = () => {
     if (id && campgroundResponse && session.data) {
       try {
@@ -64,7 +63,6 @@ export default function Booking() {
   };
 
   const [checkin, setCheckin] = useState<Dayjs | null>(null);
-  const [checkout, setCheckout] = useState<Dayjs | null>(null);
 
   return (
     <main className="w-[100%]  flex flex-wrap flex-col items-center space-y-4 ">
