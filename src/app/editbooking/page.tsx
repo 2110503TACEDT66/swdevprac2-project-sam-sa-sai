@@ -19,7 +19,7 @@ import getCampground from "@/libs/getCampground";
 import { useSession } from "next-auth/react";
 import createBooking from "@/libs/createBooking";
 
-export default function Booking() {
+export default function EditBooking() {
   const router = useRouter();
   const session = useSession();
 
@@ -99,35 +99,3 @@ export default function Booking() {
     </main>
   );
 }
-
-/*
-<div
-        className="space-y-1 w-[60vw] rounded-xl bg-slate-100 border-slate-500 border 
-            flex flex-col justify-start text-left items-start "
-      >
-        <table className="table-auto border-separate border-spacing-2 m-5">
-          <tbody>
-            <tr>
-              <td>id : </td>
-              <td>{profile.data._id}</td>
-            </tr>
-            <tr>
-              <td>Name : </td>
-              <td>{profile.data.name}</td>
-            </tr>
-            <tr>
-              <td>Email : </td>
-              <td>{profile.data.email}</td>
-            </tr>
-            <tr>
-              <td>Tel. : </td>
-              <td>{profile.data.tel}</td>
-            </tr>
-            <tr>
-              <td>Member Since : </td>
-              <td>{createdAt.toString()}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-*/
