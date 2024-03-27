@@ -18,8 +18,10 @@ import {
 import getCampground from "@/libs/getCampground";
 import { useSession } from "next-auth/react";
 import createBooking from "@/libs/createBooking";
+import SuccessModal from "@/components/SuccessModel";
 
 export default function Booking() {
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const router = useRouter();
   const session = useSession();
 
@@ -56,7 +58,7 @@ export default function Booking() {
         console.log(error);
       }
       // dispatch(addBooking(item));
-      router.push("/success");
+      // router.push("/success");
     } else {
       alert("Please Choose your campground to reserve");
     }
@@ -89,11 +91,18 @@ export default function Booking() {
               name="Book Vaccine"
               className="block rounded-lg bg-orange-600 hover:bg-green-600 hover:ring-green-300 
           px-3 py-2 text-white shadow-sm w-[60%] h-[80%] text-xl"
-              onClick={makeReservation}
+              onClick={() => {
+                setShowSuccessModal(true);
+                makeReservation();
+              }}
             >
               Book Campground
             </button>
           </div>
+          <SuccessModal
+            isOpen={showSuccessModal}
+            onClose={() => setShowSuccessModal(false)}
+          />
         </FormControl>
       </div>
     </main>
