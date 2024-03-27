@@ -1,20 +1,43 @@
 "use client";
 import { useAppSelector, AppDispatch } from "@/redux/store";
 import { useDispatch } from "react-redux";
-import { removeBooking } from "@/redux/features/bookSlice";
+// import { removeBooking } from "@/redux/features/bookSlice";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { BookingItem } from "../../interface";
+import deleteBooking from "@/libs/deleteBooking";
+import getBookings from "@/libs/getBooking";
+import session from "redux-persist/lib/storage/session";
+import { useSession } from "next-auth/react";
 
 export default function ReservationBooking() {
-  const bookItems = useAppSelector(
-    (state) => state.reduxPersistedReducer.bookSlice.bookItems
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  // const bookItems = useAppSelector(
+  //   (state) => state.reduxPersistedReducer.bookSlice.bookItems
+  // );
+  const session = useSession();
+  console.log(session);
+
+  const [reservation, setreservation] = useState<null | BookingItem[]>(null);
+  const [isDeleting, setisDeleting] = useState(false);
+
+  const fetchData = async () => {
+    if (session.data?.user) {
+      const res = await getBookings(session.data.user.token);
+      setreservation(res.data);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [session.data?.user]);
+
   return (
     <div className="min-h-[70vh]">
-      {bookItems.length > 0 ? (
-        bookItems.map((reservationItem) => (
+      {reservation && reservation.length > 0 ? (
+        reservation.map((reservationItem) => (
           <div
-            className="bg-slate-200 rounded-lg  px-5 mx-5 py-5 my-4"
-            key={reservationItem.campgroundid}
+            className="bg-slate-200 rounded-lg  px-5 m-5 mt-10 py-5 my-4"
+            key={reservationItem._id}
           >
             <div className="text-xl pl-2">
               {/* {reservationItem.name} {reservationItem.surname} */}
@@ -22,29 +45,56 @@ export default function ReservationBooking() {
             <table className="table-auto border-separate border-spacing-2">
               <tbody>
                 <tr>
-                  <td>Campground ID</td>
-                  <td>{reservationItem.campgroundid}</td>
+                  <td>Campground Name</td>
+                  <td>{reservationItem.campground.name}</td>
+                </tr>
+                <tr>
+                  <td>Address</td>
+                  <td>
+                    {reservationItem.campground.address}{" "}
+                    {reservationItem.campground.district}{" "}
+                    {reservationItem.campground.province}{" "}
+                    {reservationItem.campground.region}{" "}
+                    {reservationItem.campground.postalcode}
+                  </td>
+                </tr>
+                <tr>
+                  <td>Tel.</td>
+                  <td>{reservationItem.campground.tel}</td>
                 </tr>
                 <tr>
                   <td>Date Check-In</td>
-                  <td>{reservationItem.checkin.toString()}</td>
-                </tr>
-                <tr>
-                  <td>Date Check-Out</td>
-                  <td>{reservationItem.checkout.toString()}</td>
+                  <td>
+                    {dayjs(reservationItem.apptDate).format("YYYY/MM/DD")}
+                  </td>
                 </tr>
               </tbody>
             </table>
             <button
-              className="block bg-orange-600 text-white border border-white 
-                         p-2 rounded-lg relative bottom-0
-                         hover:bg-white hover:text-cyan-700 
-                         hover:border-cyan-700 hover:border-2"
-              onClick={() =>
-                dispatch(removeBooking(reservationItem.campgroundid))
+              disabled={isDeleting}
+              className={
+                isDeleting
+                  ? "block bg-slate-600 text-white border border-white p-2 rounded-lg relative bottom-0"
+                  : "block bg-orange-600 text-white border border-white p-2 rounded-lg relative bottom-0 hover:bg-white hover:text-orange-700 hover:border-orange-700 border-2"
               }
+              onClick={async () => {
+                if (session.data) {
+                  setisDeleting(true);
+                  try {
+                    await deleteBooking(
+                      reservationItem._id,
+                      session.data?.user.token
+                    );
+                    fetchData();
+                  } catch (error) {
+                    console.log(error);
+                  } finally {
+                    setisDeleting(false);
+                  }
+                }
+              }}
             >
-              Remove Vaccine Booking
+              Remove Campground Booking
             </button>
           </div>
         ))

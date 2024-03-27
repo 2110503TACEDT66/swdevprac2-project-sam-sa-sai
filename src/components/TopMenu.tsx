@@ -45,7 +45,7 @@ export default async function TopMenu() {
         </Link>
         {session ? (
           <div className="ml-2">
-            <Link href="/profile" className="w-32 text-center my-auto">
+            <Link href="/profile/information" className="w-32 text-center my-auto">
               <Image
                 src={session.user._id ? session.user.name : "/img/logo2.png"}
                 className="w-auto h-full"

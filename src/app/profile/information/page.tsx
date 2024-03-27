@@ -1,25 +1,53 @@
+"use client";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import getUserProfile from "@/libs/getUserProfile";
 import Link from "next/link";
 import DateReserve from "@/components/DateReserve";
 import userLogOut from "@/libs/userLogout";
 import Image from "next/image";
 import { TextField } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { UserJson } from "../../../../interface";
+import { fetchData } from "next-auth/client/_utils";
+import updateUser from "@/libs/updateUser";
+// import ProfilePage from "@/components/ProfilePage";
 // import { useRouter } from "next/navigation";
 
-export default async function Profile() {
+export default function Profile() {
   // const router = useRouter();
 
   // const [isEditing, setIsEditing] = useState(false);
   // const [name, setName] = useState(null);
+  const [statusName, setStatusName] = useState(true);
+  const [statusEmail, setStatusEmail] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [tel, setTel] = useState("");
+  const [createAt, setcreateAt] = useState("");
+  const [id, setId] = useState("");
 
-  const session = await getServerSession(authOptions);
-  if (!session || !session.user.token) return null;
+  const session = useSession();
+  console.log(session);
 
-  const profile = await getUserProfile(session.user.token);
-  var createdAt = new Date(profile.data.createdAt);
+  useEffect(() => {
+    async function fetchUserProfile() {
+      if (session.data?.user) {
+        const res = await getUserProfile(session.data.user.token);
+        setId(res.data._id);
+        setName(res.data.name);
+        setEmail(res.data.email);
+        setTel(res.data.tel);
+        setcreateAt(res.data.createdAt);
+      }
+    }
+    fetchUserProfile();
+  }, [session.data?.user]);
+
+  if (!session || !session.data?.user?.token)
+    return <div className="text-xl text-center">...Loading</div>;
+
+  if (!name && !email && !tel) return null;
 
   return (
     <div className="w-full h-[100vh] flex flex-row justtify-center items-center">
@@ -34,15 +62,19 @@ export default async function Profile() {
           />
         </div>
         <div className="h-[5%] w-[90%] relative">
-          <div className="text-3xl text-center mt-12">{profile.data.name}</div>
+          <div className="text-3xl text-center mt-12">{name}</div>
         </div>
         <div className="h-[20%] w-[95%] space-y-2 flex-1 itemscenter relative">
-          <div className="pb-2 pl-5 border-b border-black mt-24">Profile</div>
-          <div className="pb-2 pl-5 border-b border-black mt-24">Booking</div>
+          <Link href={"/profile/information"}>
+            <div className="pb-2 pl-5 border-b border-black mt-16">Profile</div>
+          </Link>
+          <Link href={"/profile/booking"}>
+            <div className="pb-2 pl-5 border-b border-black mt-5">Booking</div>
+          </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
           <div className="w-[100%] pb-2 pl-5 border-b border-black bottom-4">
-            <Link href="/api/auth/signout">Logout</Link>
+            <Link href="/api/auth/logout">Logout</Link>
           </div>
         </div>
       </div>
@@ -51,20 +83,72 @@ export default async function Profile() {
         <div className="flex flex-col space-y-8 m-4 mt-50">
           <div className="space-y-3">
             <div>Name</div>
-            <TextField defaultValue={profile.data.name} size="small" />
+            <div className="flex flex-row">
+              <TextField
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                value={name}
+                size="small"
+                InputProps={{
+                  readOnly: statusName,
+                }}
+              />
+
+              <Image
+                onClick={() => {
+                  setStatusName(!statusName);
+                }}
+                src={"/img/edit.jpg"}
+                alt="edit"
+                objectFit="cover"
+                width={40}
+                height={40}
+                className="ml-2"
+              />
+            </div>
           </div>
           <div className="space-y-3">
             <div>Email</div>
-            <TextField defaultValue={profile.data.email} size="small" />
+            <div className="flex flex-row">
+              <TextField
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                value={email}
+                size="small"
+                InputProps={{
+                  readOnly: statusEmail,
+                }}
+              />
+              <Image
+                onClick={() => {
+                  setStatusEmail(!statusEmail);
+                }}
+                src={"/img/edit.jpg"}
+                alt="edit"
+                objectFit="cover"
+                width={40}
+                height={40}
+                className="ml-2"
+              />
+            </div>
           </div>
           <div className="space-y-3">
             <div>Tel</div>
-            <TextField defaultValue={profile.data.tel} size="small" />
+            <div className="flex flex-row">
+              <TextField defaultValue={tel} size="small" disabled />
+            </div>
           </div>
           <div>
             <button
               className="rounded-md bg-orange-600 hover:bg-orange-400 px-3 py-2
             shadow-sm text-white right-0 bottom-0 mt-8"
+              onClick={() => {
+                if (id && session.data.user.token) {
+                  updateUser(id, name, email, session.data.user.token);
+                }
+              }}
             >
               Save
             </button>

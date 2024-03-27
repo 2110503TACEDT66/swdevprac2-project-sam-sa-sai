@@ -4,34 +4,34 @@ import React, { useState, useEffect } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Link } from "@mui/material";
-import { useSession } from "next-auth/react";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-  const { data: session, status } = useSession();
-
-  useEffect(() => {
-    if (status === "authenticated" && session) {
-      router.push("/");
-    }
-  }, [status, session]);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
 
-    if (result?.error) {
-      setError(result.error);
-    } else {
-      alert("Login success");
-      router.push("/");
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        if (router) {
+          alert("Login success");
+          window.location.reload();
+          window.location.href = "/";
+        }
+      }
+    } catch (error) {
+      console.error("Error during login", error);
     }
   };
 

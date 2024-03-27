@@ -26,9 +26,34 @@ export interface HospitalDetail {
 }
 
 export interface BookingItem {
-  campgroundid: string;
-  checkin: string;
-  checkout: string;
+  _id: string;
+  apptDate: string;
+  user: string;
+  campground: {
+    _id: string;
+    name: string;
+    address: string;
+    district: string;
+    province: string;
+    region: string;
+    postalcode: string;
+    tel: string;
+    url: string;
+    id: string;
+  };
+  createdAt: string;
+}
+
+export interface BookingJson {
+  success: boolean;
+  count: number;
+  data: BookingItem[];
+}
+
+export interface CreateBookingItem {
+  apptDate: string;
+  user: string;
+  campground: string;
 }
 
 /*-------------------------------------------------------*/
@@ -58,4 +83,16 @@ export interface CampgroundJson {
   count: number;
   pagination: Object;
   data: CampgroundItem[];
+}
+
+export interface UserJson {
+  success: boolean;
+  data: {
+    _id: string;
+    name: string;
+    tel: string;
+    email: string;
+    role: string;
+    createdAt: string;
+  };
 }
