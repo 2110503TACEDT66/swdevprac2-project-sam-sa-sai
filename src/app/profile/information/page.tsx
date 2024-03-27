@@ -148,6 +148,7 @@ export default function Profile() {
               onClick={() => {
                 if (id && session.data.user.token) {
                   updateUser(id, name, email, session.data.user.token);
+                  alert("User information saved successfully!");
                 }
               }}
             >
