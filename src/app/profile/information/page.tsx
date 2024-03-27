@@ -26,6 +26,7 @@ export default function Profile() {
   const [tel, setTel] = useState("");
   const [createAt, setcreateAt] = useState("");
   const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
 
   const session = useSession();
   console.log(session);
