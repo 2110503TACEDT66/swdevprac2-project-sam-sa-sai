@@ -25,19 +25,20 @@ const LoginPage: React.FC = () => {
         setError(result.error);
       } else {
         if (router) {
-          alert("Login success");
+          // alert("Login success");
           window.location.reload();
           window.location.href = "/";
         }
       }
     } catch (error) {
       console.error("Error during login", error);
+      // alert("Please check your Email and Password");
     }
   };
 
   return (
     <div className="bg-white min-h-screen flex justify-center items-center">
-      <div className="bg-white p-8 rounded shadow-md w-80">
+      <div className="bg-white p-8 rounded border-2 border-black shadow-md w-full max-w-md mx-auto">
         <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
         {error && <div className="text-red-500 mb-4 text-center">{error}</div>}
         <form onSubmit={handleLogin} className="space-y-4">
@@ -72,11 +73,10 @@ const LoginPage: React.FC = () => {
             Login
           </button>
         </form>
-        <div className="mt-4 text-center">
+        <div className="mt-4 text-center flex items-center justify-center">
+          <a className="text-black mr-2">Don't have an account?</a>
           <Link href="/api/auth/register">
-            <a className="text-blue-500 underline">
-              Don't have an account? Register
-            </a>
+            <a className="text-blue-500 underline">Register</a>
           </Link>
         </div>
       </div>

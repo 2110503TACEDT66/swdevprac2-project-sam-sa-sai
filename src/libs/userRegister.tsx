@@ -22,7 +22,7 @@ const userRegister = async (
   );
 
   if (!response.ok) {
-    throw new Error("Failed to register user");
+    throw new Error("Failed to register");
   }
 
   return await response.json();

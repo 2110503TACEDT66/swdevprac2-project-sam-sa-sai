@@ -33,7 +33,8 @@ export default function SuccessPage() {
         </div>
         <button
           onClick={() => {
-            router.push("/");
+            window.location.reload();
+            window.location.href = "/";
           }}
           className="w-[100%] items-center my-10 py-3 px-6 bg-green-500 text-white rounded-lg shadow-md hover:bg-green-600 
           focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"

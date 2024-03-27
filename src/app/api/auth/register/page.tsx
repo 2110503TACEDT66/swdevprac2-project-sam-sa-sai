@@ -20,20 +20,28 @@ const RegisterPage: React.FC = () => {
 
     try {
       await userRegister(name, email, password, tel);
-      console.log("Registration successful");
-      alert("Registration successful");
+      // console.log("Registration successful");
+      // alert("Registration successful");
 
-      await signIn("credentials", {
+      const result = await signIn("credentials", {
         redirect: false,
         email,
         password,
       });
 
-      router.push("/");
+      if (result?.error) {
+        setError(result.error);
+      } else {
+        if (router) {
+          // alert("Login success");
+          window.location.reload();
+          window.location.href = "/";
+        }
+      }
     } catch (error: unknown) {
       const err = error as any;
       alert("Please check your tel. or Email it already registered.");
-      throw new Error(err.message || "Failed to register user");
+      // throw new Error(err.message || "Failed to register user");
     }
   };
 
