@@ -80,7 +80,6 @@ export interface CampgroundItem {
   description: string;
   price: number;
   rating: number;
-  reservations: [];
   id: string;
 }
 
