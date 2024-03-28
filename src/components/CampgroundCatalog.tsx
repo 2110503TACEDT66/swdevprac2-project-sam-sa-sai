@@ -143,6 +143,7 @@ export default async function CampgroundCatalog({
                     />
                   </div>
                 </div>
+                <div></div>
               </div>
               <div className="p-8 space-y-2">
                 <div className="text-lg text-left">City</div>

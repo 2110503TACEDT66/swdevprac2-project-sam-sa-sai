@@ -109,9 +109,22 @@ export default function EditBooking() {
                 {bookingResponse?.campground?.postalcode}
               </div>
             </div>
-            <a href={bookingResponse?.campground.url}>
-              <div className="pl-5 text-sky-500 text-sm">
+            <a
+              href={bookingResponse?.campground.url}
+              className="flex items-center text-blue-500"
+            >
+              <div className="pl-5 text-sm flex items-center">
                 Visit campground website
+                <Image
+                  src={"/img/link.png"}
+                  alt="location"
+                  width={20}
+                  height={20}
+                  className="ml-2"
+                  style={{
+                    filter: "brightness(0) saturate(100%) hue-rotate(180deg)",
+                  }}
+                />
               </div>
             </a>
             <div className="border-b border-black">

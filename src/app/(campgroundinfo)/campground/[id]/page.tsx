@@ -38,10 +38,30 @@ export default async function CampgroundDetailPage({
               />
             </div>
             <div className="">
-              Address: {campgroundReady.data.address}{" "}
-              {campgroundReady.data.district} {campgroundReady.data.postalcode}{" "}
-              <br />
-              Tel: {campgroundReady.data.tel}
+              <div className="flex items-center">
+                <img
+                  src="/img/location.png"
+                  alt="location"
+                  className="mr-2"
+                  style={{ width: "20px", height: "20px" }}
+                />
+                <span>
+                  Address: {campgroundReady.data.address}{" "}
+                  {campgroundReady.data.district}{" "}
+                  {campgroundReady.data.postalcode}
+                </span>
+              </div>
+              <div className="flex items-center">
+                <img
+                  src="/img/tel.png"
+                  alt="tel"
+                  className="mr-2"
+                  style={{ width: "20px", height: "20px" }}
+                />
+                <span>
+                  <div>Tel: {campgroundReady.data.tel}</div>
+                </span>
+              </div>
             </div>
           </div>
           <div className="top-0 right-0 h-[100%] w-[45%] text-2xl items-end text-right text-end">

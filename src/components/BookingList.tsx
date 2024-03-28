@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { BookingItem, UserJson } from "../../interface";
 import deleteBooking from "@/libs/deleteBooking";
 import getBookings from "@/libs/getBooking";
-import session from "redux-persist/lib/storage/session";
 import { useSession } from "next-auth/react";
 import getUserProfile from "@/libs/getUserProfile";
 import Link from "next/link";
@@ -22,6 +21,7 @@ export default function ReservationBooking() {
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
   const [role, setRole] = useState("");
   const [isDeleting, setisDeleting] = useState(false);
+  var ready = false;
 
   const fetchData = async () => {
     if (session.data?.user) {
@@ -29,6 +29,7 @@ export default function ReservationBooking() {
       const roleuser = await getUserProfile(session.data.user.token);
       setreservation(res.data);
       setRole(roleuser.data.role);
+      ready = true;
     }
   };
 
@@ -124,8 +125,12 @@ export default function ReservationBooking() {
             </button>
           </div>
         ))
+      ) : ready ? (
+        <h1 className="text-center text-2xl m-16">"No Campground Booking"</h1>
       ) : (
-        <h1 className="text-center text-3xl m-16">"No Campground Booking"</h1>
+        <h1 className="text-center text-2xl m-16">
+          Campground Booking Loading...
+        </h1>
       )}
     </div>
   );
