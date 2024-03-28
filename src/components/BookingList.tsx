@@ -81,7 +81,10 @@ export default function ReservationBooking() {
                 </tr>
               </tbody>
             </table>
-            <Link href={`/editbooking?id=${reservationItem._id}`}>
+            <Link
+              href={`/editbooking?id=${reservationItem._id}`}
+              className="wrap"
+            >
               <button
                 disabled={isDeleting}
                 className={

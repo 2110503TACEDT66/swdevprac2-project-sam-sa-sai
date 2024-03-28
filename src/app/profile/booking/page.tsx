@@ -59,18 +59,29 @@ export default function Profile() {
         </div>
         <div className="h-[20%] w-[95%] space-y-2 flex-1 itemscenter relative">
           <Link href={"/profile/information"}>
-            <div className="pb-2 pl-5 border-b border-black mt-16">Profile</div>
+            <div className="pb-2 pl-5 border-b border-black mt-16 hover:text-bold hover:border-b-2">
+              Profile
+            </div>
           </Link>
           <Link href={"/profile/booking"}>
-            <div className="pb-2 pl-5 border-b border-black mt-5">Booking</div>
+            <div className="pb-2 pl-5 border-b border-black mt-5 hover:text-bold hover:border-b-2">
+              Booking
+            </div>
           </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
           <div
-            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer"
+            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer flex flex-row hover:text-bold hover:border-b-2"
             onClick={() => setShowLogoutModal(true)}
           >
             Logout
+            <Image
+              src={"/img/logoutprofile.png"}
+              alt="logout logo"
+              width={10}
+              height={10}
+              className="ml-2"
+            />
           </div>
         </div>
       </div>

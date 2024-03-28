@@ -14,7 +14,7 @@ const createBooking = async (campground: CreateBookingItem, token: string) => {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to create Booking");
+    throw new Error("Failed to create booking");
   }
 
   return await response.json();

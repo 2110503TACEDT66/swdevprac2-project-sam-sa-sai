@@ -68,15 +68,19 @@ export default function Profile() {
         </div>
         <div className="h-[20%] w-[95%] space-y-2 flex-1 itemscenter relative">
           <Link href={"/profile/information"}>
-            <div className="pb-2 pl-5 border-b border-black mt-16">Profile</div>
+            <div className="pb-2 pl-5 border-b border-black mt-16 hover:text-bold hover:border-b-2">
+              Profile
+            </div>
           </Link>
           <Link href={"/profile/booking"}>
-            <div className="pb-2 pl-5 border-b border-black mt-5">Booking</div>
+            <div className="pb-2 pl-5 border-b border-black mt-5 hover:text-bold hover:border-b-2">
+              Booking
+            </div>
           </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
           <div
-            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer"
+            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer hover:text-bold hover:border-b-2"
             onClick={() => setShowLogoutModal(true)}
           >
             Logout
@@ -115,7 +119,11 @@ export default function Profile() {
                 objectFit="cover"
                 width={40}
                 height={40}
-                className="ml-2"
+                className={
+                  !statusName
+                    ? "ml-2 animate-pulse active:scale-75"
+                    : "ml-2 hover:opacity-50 active:scale-75"
+                }
               />
             </div>
           </div>
@@ -142,7 +150,11 @@ export default function Profile() {
                 objectFit="cover"
                 width={40}
                 height={40}
-                className="ml-2"
+                className={
+                  !statusEmail
+                    ? "ml-2 animate-pulse active:scale-75"
+                    : "ml-2 hover:opacity-50 active:scale-75"
+                }
               />
             </div>
           </div>

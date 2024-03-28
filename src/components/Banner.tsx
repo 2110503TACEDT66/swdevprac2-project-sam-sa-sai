@@ -34,11 +34,11 @@ export default function Banner() {
           "Unlock Boundless Camping Experiences"{" "}
         </h2>
       </div> */}
-      {session ? (
+      {/* {session ? (
         <div className="z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl">
           Welcome {session.user?.name}
         </div>
-      ) : null}
+      ) : null} */}
       <div className="flex justify-center items-center h-screen">
         <div className="absolute top-[20%] w-full text-center">
           <h1 className="text-5xl font-medium text-white z-40">
@@ -49,7 +49,7 @@ export default function Banner() {
           </h1>
         </div>
         <button
-          className="text-xl bg-orange-600 text-white border-2 border-stone-600 hover:border-green-600 font-semibold py-6 px-5 m-2 rounded-xl z-30
+          className="text-xl bg-orange-600 text-white border-2 border-orange-700 hover:border-green-700 font-semibold py-6 px-5 m-2 rounded-xl z-30
                 hover:bg-green-600 hover:text-white hover:transparent hover:shadow-xl transform translate-y-10"
           onClick={(e) => {
             e.stopPropagation();

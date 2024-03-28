@@ -10,7 +10,7 @@ export default function Campground() {
   const campgrounds = getCampgrounds();
   return (
     <main className="text-center p-5">
-      <h1 className="text-xl font-medium">Select Your Campground</h1>
+      <h1 className="text-xl font-medium mt-10">Select Your Campground</h1>
       <Suspense
         fallback={
           <p className="m-10">

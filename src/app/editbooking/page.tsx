@@ -1,18 +1,14 @@
 "use client";
-import { FormControl } from "@mui/material";
+import { useSearchParams, useRouter } from "next/navigation";
 import DateReserve from "@/components/DateReserve";
-import dayjs, { Dayjs } from "dayjs";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { CreateBookingItem, UserJson } from "../../../interface";
-import getCampground from "@/libs/getCampground";
-import { useSession } from "next-auth/react";
-import createBooking from "@/libs/createBooking";
-import { BookingItem, BookingOneJson } from "../../../interface";
-import getOneBooking from "@/libs/getOneBooking";
 import getUserProfile from "@/libs/getUserProfile";
-import Link from "next/link";
+import { BookingItem } from "../../../interface";
+import getOneBooking from "@/libs/getOneBooking";
+import updateBooking from "@/libs/updateBooking";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { FormControl } from "@mui/material";
+import dayjs, { Dayjs } from "dayjs";
 
 export default function EditBooking() {
   const router = useRouter();
@@ -41,10 +37,6 @@ export default function EditBooking() {
           setName(profile.data.name);
           setEmail(profile.data.email);
           setTel(profile.data.tel);
-          // console.log(booking.data);
-          // const campgrounddetail = await getCampground(booking.campground.id);
-          // setCampground(campgrounddetail as CampgroundItem);
-          // console.log(campgrounddetail);
         }
       } catch (error) {
         console.log(error);
@@ -56,28 +48,29 @@ export default function EditBooking() {
     }
   }, [id, session.data?.user]);
 
-  const [checkin, setCheckin] = useState<Dayjs>(
-    dayjs(bookingResponse?.apptDate)
-  );
+  const [checkin, setCheckin] = useState<Dayjs | null>(null);
 
   if (!session || !session.data) return null;
 
-  const makeReservation = () => {
+  const updateReservation = () => {
     if (id && bookingResponse && session.data) {
       try {
-        const item: CreateBookingItem = {
-          apptDate: dayjs(checkin).toISOString(),
-          user: session.data.user._id,
-          campground: id,
-        };
-        createBooking(item, session.data.user.token);
+        if (checkin == null) {
+          updateBooking(id, bookingResponse.apptDate, session.data.user.token);
+        } else {
+          updateBooking(
+            id,
+            dayjs(checkin).toISOString(),
+            session.data.user.token
+          );
+        }
       } catch (error) {
         console.log(error);
       }
       // dispatch(addBooking(item));
-      router.push("/success");
-    } else {
       alert("edit success");
+    } else {
+      alert("the data did not change");
     }
   };
 
@@ -90,9 +83,10 @@ export default function EditBooking() {
         bookingID: {bookingResponse?._id}
       </div>
       <div
-        className="w-[100%] h-[65vh] items-center justify-center
-                      space-x-5 flex flex-row relative"
+        className="w-[100%] h-[65vh] items-center content-center
+                      space-x-5 flex flex-col relative"
       >
+        <div className="w-[73%] text-left text-xl">Booking Detail:</div>
         <FormControl
           className="w-[100%] h-[90%] space-x-16 flex items-center justify-center relative"
           style={{ flexDirection: "row" }}
@@ -146,7 +140,7 @@ export default function EditBooking() {
                 name="Book Vaccine"
                 className="block rounded-lg bg-orange-600 hover:bg-white hover:ring-red-300 hover:text-orange-600
                            px-3 py-2 text-white shadow-sm w-[30%] border-2 border-orange-600"
-                onClick={makeReservation}
+                onClick={() => router.back()}
               >
                 Cancel
               </button>
@@ -155,7 +149,7 @@ export default function EditBooking() {
                 name="Book Vaccine"
                 className="block rounded-lg bg-orange-600 hover:bg-green-600 hover:ring-green-300 
           px-3 py-2 text-white shadow-sm w-[30%] border-2 border-orange-600 hover:border-green-300"
-                onClick={makeReservation}
+                onClick={updateReservation}
               >
                 Save edit
               </button>
