@@ -65,6 +65,7 @@ export default function Booking() {
   };
 
   const [checkin, setCheckin] = useState<Dayjs | null>(null);
+  const currentDate = dayjs();
 
   return (
     <main className="w-[100%]  flex flex-wrap flex-col items-center space-y-4 mb-10">
@@ -81,7 +82,14 @@ export default function Booking() {
             <div className="w-[7%] text-right text-lg">Date</div>
             <DateReserve
               onDateChange={(value: Dayjs) => {
-                setCheckin(value);
+                if (value.isAfter(currentDate)) {
+                  //alert("set Check IN")
+                  setCheckin(value);
+                } else {
+                  alert(
+                    "Please select a date other than today and before today."
+                  );
+                }
               }}
             />
           </div>
@@ -92,8 +100,12 @@ export default function Booking() {
               className="block rounded-lg bg-orange-600 hover:bg-green-600 hover:ring-green-300 
           px-3 py-2 text-white shadow-sm w-[60%] h-[80%] text-xl"
               onClick={() => {
-                setShowSuccessModal(true);
-                makeReservation();
+                if (checkin) {
+                  setShowSuccessModal(true);
+                  makeReservation();
+                } else {
+                  alert("Please pick a date to reserve. ");
+                }
               }}
             >
               Book Campground
