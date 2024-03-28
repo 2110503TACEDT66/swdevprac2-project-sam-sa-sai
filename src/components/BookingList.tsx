@@ -16,7 +16,7 @@ export default function ReservationBooking() {
   //   (state) => state.reduxPersistedReducer.bookSlice.bookItems
   // );
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
   const [role, setRole] = useState("");

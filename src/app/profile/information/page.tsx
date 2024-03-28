@@ -32,7 +32,7 @@ export default function Profile() {
   const [id, setId] = useState("");
 
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   useEffect(() => {
     async function fetchUserProfile() {

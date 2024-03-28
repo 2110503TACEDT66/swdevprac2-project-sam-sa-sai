@@ -23,7 +23,7 @@ export default function Profile() {
   // const [name, setName] = useState(null);
 
   const session = useSession();
-  console.log(session);
+  // console.log(session);
 
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
   const [name, setName] = useState("");

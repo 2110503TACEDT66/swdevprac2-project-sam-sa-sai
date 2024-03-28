@@ -20,7 +20,10 @@ export default function Available({ id }: { id: string }) {
     fetchData();
   }, [session.data?.user]);
 
-  const isDisabled = reservation && reservation.length >= 3;
+  const isDisabled =
+    reservation &&
+    reservation.length >= 3 &&
+    session.data?.user.role === "user";
 
   return (
     <div className="w-[100%] h-[35vh] border-4 border-bg-black flex flex-col space-y-10 justify-center rounded-2xl m-5 items-center">
