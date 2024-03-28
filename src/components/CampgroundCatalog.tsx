@@ -9,9 +9,11 @@ import {
   FormGroup,
   FormControlLabel,
 } from "@mui/material";
-import { useState } from "react";
+import { Children, useState } from "react";
+import { Suspense } from "react";
+import { LinearProgress } from "@mui/material";
 
-export default async function CampgroundCatalog({
+export default function CampgroundCatalog({
   campgroundJson,
 }: {
   campgroundJson: Promise<CampgroundJson>;
@@ -21,16 +23,61 @@ export default async function CampgroundCatalog({
   const [selectedStars, setSelectedStars] = useState<number[]>([]);
   const [cityFilter, setCityFilter] = useState<string>("");
 
-  const campgroundReady = await campgroundJson;
-
-  const handleStarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseInt(event.target.value);
+  const handleStarChange = (value: number) => {
     if (selectedStars.includes(value)) {
       setSelectedStars(selectedStars.filter((star) => star !== value));
     } else {
       setSelectedStars([...selectedStars, value]);
     }
   };
+
+  return (
+    <>
+      <FilterPanel
+        handleStarChange={handleStarChange}
+        selectedStars={selectedStars}
+        setMinValue={setMinValue}
+        setMaxValue={setMaxValue}
+        valueMin={valueMin}
+        valueMax={valueMax}
+        cityFilter={cityFilter}
+        setCityFilter={setCityFilter}
+      >
+        <Suspense
+          fallback={
+            <p className="m-10">
+              <p className="text-xl mb-5">Loading ...</p>
+              <LinearProgress />
+            </p>
+          }
+        >
+          <ListCampground
+            campgroundJson={campgroundJson}
+            selectedStars={selectedStars}
+            valueMin={valueMin}
+            valueMax={valueMax}
+            cityFilter={cityFilter}
+          />
+        </Suspense>
+      </FilterPanel>
+    </>
+  );
+}
+
+async function ListCampground({
+  campgroundJson,
+  selectedStars,
+  valueMin,
+  valueMax,
+  cityFilter,
+}: {
+  campgroundJson: Promise<CampgroundJson>;
+  selectedStars: number[];
+  valueMin: number | null;
+  valueMax: number | null;
+  cityFilter: string;
+}) {
+  const campgroundReady = await campgroundJson;
 
   const filteredData = campgroundReady.data.filter((item) => {
     const passedStarFilter =
@@ -46,6 +93,47 @@ export default async function CampgroundCatalog({
 
   return (
     <>
+      {filteredData.map((campgroundItem) => (
+        <Link
+          href={`/campground/${campgroundItem.id}`}
+          className="w-[95%]"
+          key={campgroundItem.id}
+        >
+          <Card
+            campgroundName={campgroundItem.name}
+            imgSrc={campgroundItem.coverpicture}
+            price={campgroundItem.price}
+            province={campgroundItem.province}
+          />
+        </Link>
+      ))}
+    </>
+  );
+}
+
+function FilterPanel({
+  children,
+  handleStarChange,
+  selectedStars,
+  setMinValue,
+  setMaxValue,
+  valueMin,
+  valueMax,
+  setCityFilter,
+  cityFilter,
+}: {
+  children: React.ReactNode;
+  handleStarChange: (value: number) => void;
+  selectedStars: number[];
+  setMinValue: (value: number | null) => void;
+  setMaxValue: (value: number | null) => void;
+  valueMin: number | null;
+  valueMax: number | null;
+  setCityFilter: (value: string) => void;
+  cityFilter: string;
+}) {
+  return (
+    <>
       <div className="w[95%] m-5 p-5 flex flex-row flex-wrap space-x-10 justify-center items-start">
         <div className="w-[25%] relative items-start">
           <div className="bg-white w-full my-auto block border border-black rounded-lg">
@@ -58,7 +146,9 @@ export default async function CampgroundCatalog({
                       control={
                         <Checkbox
                           checked={selectedStars.includes(1)}
-                          onChange={handleStarChange}
+                          onChange={(e) =>
+                            handleStarChange(parseInt(e.target.value))
+                          }
                           value={1}
                           size="small"
                         />
@@ -69,7 +159,9 @@ export default async function CampgroundCatalog({
                       control={
                         <Checkbox
                           checked={selectedStars.includes(2)}
-                          onChange={handleStarChange}
+                          onChange={(e) =>
+                            handleStarChange(parseInt(e.target.value))
+                          }
                           value={2}
                           size="small"
                         />
@@ -80,7 +172,9 @@ export default async function CampgroundCatalog({
                       control={
                         <Checkbox
                           checked={selectedStars.includes(3)}
-                          onChange={handleStarChange}
+                          onChange={(e) =>
+                            handleStarChange(parseInt(e.target.value))
+                          }
                           value={3}
                           size="small"
                         />
@@ -91,7 +185,9 @@ export default async function CampgroundCatalog({
                       control={
                         <Checkbox
                           checked={selectedStars.includes(4)}
-                          onChange={handleStarChange}
+                          onChange={(e) =>
+                            handleStarChange(parseInt(e.target.value))
+                          }
                           value={4}
                           size="small"
                         />
@@ -102,7 +198,9 @@ export default async function CampgroundCatalog({
                       control={
                         <Checkbox
                           checked={selectedStars.includes(5)}
-                          onChange={handleStarChange}
+                          onChange={(e) =>
+                            handleStarChange(parseInt(e.target.value))
+                          }
                           value={5}
                           size="small"
                         />
@@ -160,22 +258,7 @@ export default async function CampgroundCatalog({
             </div>
           </div>
         </div>
-        <div className="w-[70%] relative items-center">
-          {filteredData.map((campgroundItem) => (
-            <Link
-              href={`/campground/${campgroundItem.id}`}
-              className="w-[95%]"
-              key={campgroundItem.id}
-            >
-              <Card
-                campgroundName={campgroundItem.name}
-                imgSrc={campgroundItem.coverpicture}
-                price={campgroundItem.price}
-                province={campgroundItem.province}
-              />
-            </Link>
-          ))}
-        </div>
+        <div className="w-[70%] relative items-center">{children}</div>
       </div>
     </>
   );

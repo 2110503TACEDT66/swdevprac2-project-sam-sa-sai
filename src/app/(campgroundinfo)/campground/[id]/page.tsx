@@ -27,7 +27,20 @@ export default async function CampgroundDetailPage({
       <div className="w-[90%] h-[70vh] border-4 border-bg-black flex flex-col justify-center  space-y-5 top-1/2 rounded-2xl p-5 items-center">
         <div className="w-[100%] h-[30%] flex flex-row h-auto justify-center items-center">
           <div className="block items-left w-[45%] space-y-2">
-            <div className="text-4xl"> {campgroundReady.data.name} </div>
+            <div className="text-4xl flex justify-between items-center">
+              <span>{campgroundReady.data.name}</span>
+              <span className="text-sky-500 text-sm flex flex-row">
+                <a href={campgroundReady.data.url}>Visit website</a>
+                <Image
+                  src={"/img/link.png"}
+                  alt="location"
+                  width={15}
+                  height={8}
+                  className="mr-2"
+                />
+              </span>
+            </div>
+
             <div className="text-lg items-end content-end">
               Rating:{" "}
               <Rating
@@ -56,7 +69,7 @@ export default async function CampgroundDetailPage({
                   src="/img/tel.png"
                   alt="tel"
                   className="mr-2"
-                  style={{ width: "20px", height: "20px" }}
+                  style={{ width: "15px", height: "15px" }}
                 />
                 <span>
                   <div>Tel: {campgroundReady.data.tel}</div>

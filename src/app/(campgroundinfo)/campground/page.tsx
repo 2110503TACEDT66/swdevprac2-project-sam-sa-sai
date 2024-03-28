@@ -11,16 +11,7 @@ export default function Campground() {
   return (
     <main className="text-center p-5">
       <h1 className="text-xl font-medium mt-10">Select Your Campground</h1>
-      <Suspense
-        fallback={
-          <p className="m-10">
-            <p className="text-xl mb-5">Loading ...</p>
-            <LinearProgress />
-          </p>
-        }
-      >
-        <CampgroundCatalog campgroundJson={campgrounds} />
-      </Suspense>
+      <CampgroundCatalog campgroundJson={campgrounds} />
     </main>
   );
 }

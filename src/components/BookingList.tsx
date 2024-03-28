@@ -21,7 +21,7 @@ export default function ReservationBooking() {
   const [reservation, setreservation] = useState<null | BookingItem[]>(null);
   const [role, setRole] = useState("");
   const [isDeleting, setisDeleting] = useState(false);
-  var ready = false;
+  const [ready, setReady] = useState(false);
 
   const fetchData = async () => {
     if (session.data?.user) {
@@ -29,7 +29,7 @@ export default function ReservationBooking() {
       const roleuser = await getUserProfile(session.data.user.token);
       setreservation(res.data);
       setRole(roleuser.data.role);
-      ready = true;
+      setReady(true);
     }
   };
 

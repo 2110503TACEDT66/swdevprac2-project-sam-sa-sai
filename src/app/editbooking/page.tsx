@@ -70,6 +70,11 @@ export default function EditBooking() {
       }
       // dispatch(addBooking(item));
       alert("edit success");
+      if (router) {
+        // alert("Login success");
+        window.location.reload();
+        window.location.href = "/mybooking";
+      }
     } else {
       alert("the data did not change");
     }
@@ -121,9 +126,6 @@ export default function EditBooking() {
                   width={20}
                   height={20}
                   className="ml-2"
-                  style={{
-                    filter: "brightness(0) saturate(100%) hue-rotate(180deg)",
-                  }}
                 />
               </div>
             </a>
