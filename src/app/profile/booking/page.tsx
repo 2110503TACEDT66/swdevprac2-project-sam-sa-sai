@@ -13,6 +13,7 @@ import { BookingItem } from "../../../../interface";
 import { useEffect } from "react";
 import deleteBooking from "@/libs/deleteBooking";
 import LogoutModal from "@/components/LogoutModel";
+import ReservationBooking from "@/components/BookingList";
 // import { useRouter } from "next/navigation";
 
 export default function Profile() {
@@ -91,17 +92,16 @@ export default function Profile() {
       />
       <div className="w-[70%] h-full text-left mx-20 mt-48">
         <div className="text-4xl ml-4 mb-8 underline ml-5">Booking</div>
-        {reservation && reservation.length > 0 ? (
-          <div className="px-5 mt-10 py-5 flex flex-col justify-center">
-            <div className="pl-2 flex flex-row h-[20px] items-center text-black text-xl">
-              <p className="w-[50%] flex-wrap justify-lefy">Camground Name</p>
-              <p className="w-[25%] flex-wrap justify-center">Date</p>
-              <div className="w-[25%] flex-wrap space-x-3 justify-end items-right"></div>
-            </div>
-          </div>
-        ) : null}
         <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[60vh] relative">
-          {reservation && reservation.length > 0 ? (
+          <ReservationBooking />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/*
+{reservation && reservation.length > 0 ? (
             reservation.map((reservationItem) => (
               <div
                 className="bg-slate-200 rounded-lg  px-5 py-5 flex flex-col justify-center"
@@ -156,8 +156,4 @@ export default function Profile() {
               "No Campground Booking"
             </h1>
           )}
-        </div>
-      </div>
-    </div>
-  );
-}
+*/
