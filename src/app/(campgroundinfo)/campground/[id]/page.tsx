@@ -3,6 +3,7 @@ import Image from "next/image";
 import getCampground from "@/libs/getCampground";
 import DateReserve from "@/components/DateReserve";
 import Link from "next/link";
+import { Rating } from "@mui/material";
 // import ReserveCampground from "@/components/ReserveCampground";
 // import { addBooking } from "@/redux/features/bookSlice";
 
@@ -27,15 +28,20 @@ export default async function CampgroundDetailPage({
         <div className="w-[100%] h-[30%] flex flex-row h-auto justify-center items-center">
           <div className="block items-left w-[45%] space-y-2">
             <div className="text-4xl"> {campgroundReady.data.name} </div>
-            <div className="text-lg">
-              {" "}
-              Rating: {campgroundReady.data.rating}{" "}
+            <div className="text-lg items-end content-end">
+              Rating:{" "}
+              <Rating
+                name="camground rating"
+                defaultValue={campgroundReady.data.rating}
+                max={campgroundReady.data.rating}
+                readOnly
+              />
             </div>
             <div className="">
-              {" "}
-              Address:
-              {campgroundReady.data.address} {campgroundReady.data.district}{" "}
-              {campgroundReady.data.postalcode} {campgroundReady.data.tel}
+              Address: {campgroundReady.data.address}{" "}
+              {campgroundReady.data.district} {campgroundReady.data.postalcode}{" "}
+              <br />
+              Tel: {campgroundReady.data.tel}
             </div>
           </div>
           <div className="top-0 right-0 h-[100%] w-[45%] text-2xl items-end text-right text-end">

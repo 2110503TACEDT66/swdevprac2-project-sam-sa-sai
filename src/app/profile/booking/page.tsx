@@ -78,9 +78,9 @@ export default function Profile() {
             <Image
               src={"/img/logoutprofile.png"}
               alt="logout logo"
-              width={10}
+              width={20}
               height={10}
-              className="ml-2"
+              className="ml-2 scale-75"
             />
           </div>
         </div>

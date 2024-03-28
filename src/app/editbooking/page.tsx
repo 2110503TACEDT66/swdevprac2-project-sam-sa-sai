@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { FormControl } from "@mui/material";
 import dayjs, { Dayjs } from "dayjs";
+import Image from "next/image";
 
 export default function EditBooking() {
   const router = useRouter();
@@ -91,12 +92,22 @@ export default function EditBooking() {
           className="w-[100%] h-[90%] space-x-16 flex items-center justify-center relative"
           style={{ flexDirection: "row" }}
         >
-          <div className="w-[35%] h-[90%] border border-black rounded-xl flex flex-col relative ">
-            <div className="px-5 pt-5 pb-1">
-              {bookingResponse?.campground?.address}
-              {bookingResponse?.campground?.district} district,{" "}
-              {bookingResponse?.campground?.province}
-              {bookingResponse?.campground?.postalcode}
+          <div className="w-[35%] h-[90%] border border-black rounded-xl flex flex-col relative overflow-y-auto overflow-x-none">
+            <div className="px-5 pt-5 pb-1 flex flex-row flex-wrap">
+              <div className="mr-2 w-[5%] mb-2">
+                <Image
+                  src={"/img/location.png"}
+                  alt="location"
+                  width={30}
+                  height={30}
+                />
+              </div>
+              <div>
+                {bookingResponse?.campground?.address}
+                {bookingResponse?.campground?.district} district,{" "}
+                {bookingResponse?.campground?.province}
+                {bookingResponse?.campground?.postalcode}
+              </div>
             </div>
             <a href={bookingResponse?.campground.url}>
               <div className="pl-5 text-sky-500 text-sm">

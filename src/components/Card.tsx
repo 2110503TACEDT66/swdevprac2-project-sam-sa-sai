@@ -29,9 +29,14 @@ export default function Card({
           <div className="text-xl text-wrap font-semibold">
             {campgroundName}
           </div>
-          <div className="text-lg text-wrap font-medium text-slate-400">
-            {" "}
-            at {province}
+          <div className="flex items-center text-lg font-medium text-slate-400">
+            <img
+              src="/img/location.png"
+              alt="location"
+              className="mr-2"
+              style={{ width: "20px", height: "20px" }}
+            />
+            {province}
           </div>
         </div>
       </div>

@@ -80,10 +80,17 @@ export default function Profile() {
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
           <div
-            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer hover:text-bold hover:border-b-2"
+            className="w-[100%] pb-2 pl-5 border-b border-black flex flex-row bottom-4 cursor-pointer hover:text-bold hover:border-b-2"
             onClick={() => setShowLogoutModal(true)}
           >
             Logout
+            <Image
+              src={"/img/logoutprofile.png"}
+              alt="logout logo"
+              width={20}
+              height={10}
+              className="ml-2 scale-75"
+            />
           </div>
         </div>
       </div>
