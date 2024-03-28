@@ -38,14 +38,17 @@ export default async function TopMenu() {
       </div>
       <div className="right-0 flex flex-row justify-end justify-items-end items-right w-[50%]">
         <Link
-          href="/mybooking"
+          href="/profile/booking"
           className="w-28 text-center my-auto text-text-sm stone-800 border-r-2"
         >
-          My Booking
+          Booking
         </Link>
         {session ? (
           <div className="ml-2">
-            <Link href="/profile/information" className="w-32 text-center my-auto">
+            <Link
+              href="/profile/information"
+              className="w-32 text-center my-auto"
+            >
               <Image
                 src={session.user._id ? session.user.name : "/img/logo2.png"}
                 className="w-auto h-full"

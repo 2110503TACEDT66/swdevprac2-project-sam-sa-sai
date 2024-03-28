@@ -27,16 +27,16 @@ export default async function CampgroundDetailPage({
       <div className="w-[90%] h-[70vh] border-4 border-bg-black flex flex-col justify-center  space-y-5 top-1/2 rounded-2xl p-5 items-center">
         <div className="w-[100%] h-[30%] flex flex-row h-auto justify-center items-center">
           <div className="block items-left w-[45%] space-y-2">
-            <div className="text-4xl flex justify-between items-center">
+            <div className="text-4xl flex items-center">
               <span>{campgroundReady.data.name}</span>
-              <span className="text-sky-500 text-sm flex flex-row">
+              <span className="text-sky-500 text-sm flex flex-row ml-2">
                 <a href={campgroundReady.data.url}>Visit website</a>
                 <Image
                   src={"/img/link.png"}
                   alt="location"
                   width={15}
                   height={8}
-                  className="mr-2"
+                  className="ml-2"
                 />
               </span>
             </div>
