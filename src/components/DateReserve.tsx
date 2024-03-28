@@ -2,7 +2,7 @@
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
+import dayjs ,{ Dayjs } from "dayjs";
 import { useState } from "react";
 
 export default function DateReserve({
@@ -11,6 +11,7 @@ export default function DateReserve({
   onDateChange: Function;
 }) {
   const [reserveDate, setReserveDate] = useState<Dayjs | null>(null);
+  const currentDate = dayjs();
 
   return (
     <div className="">
@@ -19,8 +20,12 @@ export default function DateReserve({
           className="bg-white rounded-lg"
           value={reserveDate}
           onChange={(value) => {
+            //if (value && value.diff(currentDate) > 0 ) {
             setReserveDate(value);
             onDateChange(value);
+            // } else {
+            //   alert(" NOT OK ")
+            // }
           }}
         />
       </LocalizationProvider>
