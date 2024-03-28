@@ -66,7 +66,10 @@ export default function Profile() {
           </Link>
         </div>
         <div className="h-[75%] w-[95%] flex items-end">
-          <div className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer" onClick={() => setShowLogoutModal(true)}>
+          <div
+            className="w-[100%] pb-2 pl-5 border-b border-black bottom-4 cursor-pointer"
+            onClick={() => setShowLogoutModal(true)}
+          >
             Logout
           </div>
         </div>
@@ -86,7 +89,7 @@ export default function Profile() {
             </div>
           </div>
         ) : null}
-        <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[70vh]">
+        <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[60vh] relative">
           {reservation && reservation.length > 0 ? (
             reservation.map((reservationItem) => (
               <div

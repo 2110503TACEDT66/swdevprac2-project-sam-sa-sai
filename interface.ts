@@ -40,6 +40,7 @@ export interface BookingItem {
     tel: string;
     url: string;
     id: string;
+    price: number;
   };
   createdAt: string;
 }
@@ -48,6 +49,11 @@ export interface BookingJson {
   success: boolean;
   count: number;
   data: BookingItem[];
+}
+
+export interface BookingOneJson {
+  success: boolean;
+  data: BookingItem;
 }
 
 export interface CreateBookingItem {
