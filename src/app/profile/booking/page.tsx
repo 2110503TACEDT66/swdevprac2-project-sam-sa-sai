@@ -92,7 +92,7 @@ export default function Profile() {
       />
       <div className="w-[70%] h-full text-left mx-20 mt-48">
         <div className="text-4xl ml-4 mb-8 underline ml-5">Booking</div>
-        <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[60vh] relative">
+        <div className="flex flex-col space-y-4 m-4 p-3 overflow-y-scroll overscroll-y-auto bg-slate-100 h-[70vh] relative">
           <ReservationBooking />
         </div>
       </div>
